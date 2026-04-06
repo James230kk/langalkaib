@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>لغة السارحيّة – نطق عربي</title>
+<style>
+  body {
+    font-family: "Tahoma", sans-serif;
+    background:#0d0f14;
+    color:#fff;
+    margin:0;
+    padding:20px;
+    direction:rtl;
+  }
+  h1 { text-align:center; margin-bottom:10px; }
+  .letters {
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:10px;
+    margin-top:20px;
+  }
+  .card {
+    background:#1a1d25;
+    padding:15px;
+    border-radius:8px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.2s;
+  }
+  .card:hover {
+    background:#252a36;
+    transform:scale(1.05);
+  }
+  .glyph { font-size:2rem; display:block; }
+  .latin { font-size:0.9rem; opacity:0.7; }
+</style>
+</head>
+<body>
+
+<h1>لغة الغيب</h1>
+
+<div class="letters" id="letters"></div>
+
+<script>
+const letters = [
+  ["𐔀","آ"],["𐔁","إِه"],["𐔂","إي"],["𐔃","أو"],["𐔄","أُو"],
+  ["𐔅","ما"],["𐔆","نا"],["𐔇","كا"],["𐔈","تا"],["𐔉","را"],
+  ["𐔊","سا"],["𐔋","لا"],["𐔌","پا"],["𐔍","با"],["𐔎","دا"],
+  ["𐔏","غا"],["𐔐","فا"],["𐔑","ها"],["𐔒","يا"],["𐔓","وا"],
+  ["𐔔","شا"],["𐔕","جا"],["𐔖","خا"]
+];
+
+const container = document.getElementById("letters");
+
+letters.forEach(([glyph, sound]) => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `<span class="glyph">${glyph}</span><span class="latin">${sound}</span>`;
+  card.onclick = () => speak(sound);
+  container.appendChild(card);
+});
+
+function speak(text) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ar-SA"; // نطق عربي
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+</script>
+
+</body>
+</html>
